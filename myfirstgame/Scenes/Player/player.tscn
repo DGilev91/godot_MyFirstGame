@@ -224,9 +224,11 @@ autoplay = "Idle"
 frame_progress = 0.197006
 
 [node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(-300, 0)
+anchor_mode = 0
 zoom = Vector2(2.4, 2.4)
 process_callback = 0
-limit_left = -960
+limit_left = -965
 limit_right = 2607
 limit_bottom = 710
 position_smoothing_enabled = true
