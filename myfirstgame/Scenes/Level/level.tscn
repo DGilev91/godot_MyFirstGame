@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://b8a2ou2dfgqmb"]
+[gd_scene load_steps=9 format=4 uid="uid://b8a2ou2dfgqmb"]
 
 [ext_resource type="PackedScene" uid="uid://de1n8lsn0pgt6" path="res://Scenes/Player/player.tscn" id="1_iheil"]
 [ext_resource type="Texture2D" uid="uid://dsmn05vgaqnno" path="res://oak_woods_v1.0/background/background_layer_1.png" id="2_06ioy"]
 [ext_resource type="Texture2D" uid="uid://basdqe10i3wt" path="res://oak_woods_v1.0/background/background_layer_2.png" id="3_x701m"]
 [ext_resource type="Texture2D" uid="uid://d2b8dka20ie2v" path="res://oak_woods_v1.0/background/background_layer_3.png" id="4_7i4w6"]
 [ext_resource type="Texture2D" uid="uid://clt552c8qcrkg" path="res://oak_woods_v1.0/oak_woods_tileset.png" id="5_x701m"]
+[ext_resource type="PackedScene" uid="uid://ch3ja4aj1rrtr" path="res://Scenes/Skeleton/skeleton.tscn" id="6_7i4w6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7i4w6"]
 texture = ExtResource("5_x701m")
@@ -570,4 +571,9 @@ tile_map_data = PackedByteArray("AAChAC0AAAABAAEAAAChACwAAAABAAEAAAChACsAAAACAAE
 tile_set = SubResource("TileSet_q8n36")
 
 [node name="Player" parent="." instance=ExtResource("1_iheil")]
-position = Vector2(533, 147)
+position = Vector2(537, 626)
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="Skeleton" parent="Mobs" instance=ExtResource("6_7i4w6")]
+position = Vector2(914, 624)
