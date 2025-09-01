@@ -31,10 +31,10 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
 	if direction > 0:
-		camera_2d.offset.x = move_toward(camera_2d.offset.x, -100, 10)
+		#camera_2d.offset.x = move_toward(camera_2d.offset.x, -100, 10)
 		anim.flip_h = false
 	elif direction < 0:
-		camera_2d.offset.x = move_toward(camera_2d.offset.x, -350, 10)
+		#camera_2d.offset.x = move_toward(camera_2d.offset.x, -350, 10)
 		anim.flip_h = true
 		
 	if velocity.y > 0:
