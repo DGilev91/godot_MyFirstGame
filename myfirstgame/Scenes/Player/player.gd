@@ -4,6 +4,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var health: int = 100
+var gold: int = 0
 
 @onready var anim: AnimatedSprite2D = $Anim
 @onready var camera_2d: Camera2D = $Camera2D
