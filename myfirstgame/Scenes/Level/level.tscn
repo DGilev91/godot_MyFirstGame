@@ -539,7 +539,7 @@ script/source = "extends Label
 
 @onready var player: CharacterBody2D = $\"../../Player\"
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	text = \"HP:\" + str(player.health)
 "
 
@@ -549,7 +549,7 @@ script/source = "extends Label
 
 @onready var player: CharacterBody2D = $\"../../Player\"
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	text = \"Gold:\" + str(player.gold)
 "
 
