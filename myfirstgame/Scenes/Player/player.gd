@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
+var health: int = 100
 
 @onready var anim: AnimatedSprite2D = $Anim
 @onready var camera_2d: Camera2D = $Camera2D
@@ -39,5 +40,9 @@ func _physics_process(delta: float) -> void:
 		
 	if velocity.y > 0:
 		anim.play("Fall")
+		
+	if health <= 0:
+		queue_free()
+		get_tree().change_scene_to_file("res://Scenes/menu/menu.tscn")
 
 	move_and_slide()

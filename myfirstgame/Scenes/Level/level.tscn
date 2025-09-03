@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://b8a2ou2dfgqmb"]
+[gd_scene load_steps=10 format=4 uid="uid://b8a2ou2dfgqmb"]
 
 [ext_resource type="PackedScene" uid="uid://de1n8lsn0pgt6" path="res://Scenes/Player/player.tscn" id="1_iheil"]
 [ext_resource type="Texture2D" uid="uid://dsmn05vgaqnno" path="res://oak_woods_v1.0/background/background_layer_1.png" id="2_06ioy"]
@@ -534,6 +534,15 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.595936, 0.15727, 0.592329, 1)
 sources/0 = SubResource("TileSetAtlasSource_7i4w6")
 
+[sub_resource type="GDScript" id="GDScript_7i4w6"]
+script/source = "extends Label
+
+@onready var player: CharacterBody2D = $\"../../Player\"
+
+func _process(delta: float) -> void:
+	text = \"HP:\" + str(player.health)
+"
+
 [node name="Level" type="Node2D"]
 
 [node name="BG" type="ParallaxBackground" parent="."]
@@ -577,3 +586,20 @@ position = Vector2(537, 626)
 
 [node name="Skeleton" parent="Mobs" instance=ExtResource("6_7i4w6")]
 position = Vector2(914, 624)
+
+[node name="Skeleton2" parent="Mobs" instance=ExtResource("6_7i4w6")]
+position = Vector2(1023, 624)
+
+[node name="Skeleton3" parent="Mobs" instance=ExtResource("6_7i4w6")]
+position = Vector2(1246, 624)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 22.0
+offset_top = 13.0
+offset_right = 78.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 30
+text = "HP"
+script = SubResource("GDScript_7i4w6")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ch3ja4aj1rrtr"]
+[gd_scene load_steps=25 format=3 uid="uid://ch3ja4aj1rrtr"]
 
 [ext_resource type="Texture2D" uid="uid://hvc6vawtq28g" path="res://Monsters_Creatures_Fantasy/Skeleton/Take Hit.png" id="1_66ibh"]
 [ext_resource type="Script" uid="uid://tn4etvoq05s5" path="res://Scenes/Skeleton/skeleton.gd" id="1_84r8y"]
@@ -85,7 +85,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Death",
-"speed": 10.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -128,23 +128,48 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_84r8y"]
 radius = 156.157
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_84r8y"]
+size = Vector2(10, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_brwo6"]
+size = Vector2(18, 25)
+
 [node name="Skeleton" type="CharacterBody2D"]
 script = ExtResource("1_84r8y")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Anim" type="AnimatedSprite2D" parent="."]
 position = Vector2(-2, -1)
 scale = Vector2(0.56, 0.593185)
 sprite_frames = SubResource("SpriteFrames_7e0fo")
-animation = &"Run"
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_0q8dc")
 
 [node name="Detector" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
 shape = SubResource("CircleShape2D_84r8y")
 debug_color = Color(0.574962, 0.393507, 0.985167, 0.42)
 
+[node name="Death" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Death"]
+position = Vector2(1, -13.5)
+shape = SubResource("RectangleShape2D_84r8y")
+debug_color = Color(0.855299, 0.334109, 0.407991, 0.42)
+
+[node name="Death2" type="Area2D" parent="."]
+position = Vector2(19, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Death2"]
+position = Vector2(-19, 1.5)
+shape = SubResource("RectangleShape2D_brwo6")
+debug_color = Color(0.855299, 0.334109, 0.407991, 0.42)
+
 [connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]
 [connection signal="body_exited" from="Detector" to="." method="_on_detector_body_exited"]
+[connection signal="body_entered" from="Death" to="." method="_on_death_body_entered"]
+[connection signal="body_entered" from="Death2" to="." method="_on_death_2_body_entered"]
