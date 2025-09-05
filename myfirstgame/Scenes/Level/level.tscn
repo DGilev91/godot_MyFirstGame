@@ -556,7 +556,7 @@ func _process(_delta: float) -> void:
 [sub_resource type="GDScript" id="GDScript_362x8"]
 script/source = "extends Node2D
 
-var gold = preload(\"res://Scenes/Gold/gold.tscn\")
+var gold: Resource = preload(\"res://Scenes/Gold/gold.tscn\")
 
 func _on_timer_timeout() -> void:
 	if get_child_count() > 3:
