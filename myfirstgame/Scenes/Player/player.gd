@@ -7,6 +7,7 @@ var health: int = 100
 var gold: int = 0
 
 @onready var anim: AnimatedSprite2D = $Anim
+@onready var anim_2: AnimationPlayer = $Anim2
 @onready var camera_2d: Camera2D = $Camera2D
 
 
@@ -17,7 +18,7 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("attack") and is_on_floor():
-		anim.play("Jump")
+		anim_2.play("Jump")
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
@@ -25,11 +26,11 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("left", "right")
 	if direction:	
 		if velocity.y == 0:	
-			anim.play("Run")
+			anim_2.play("Run")
 		velocity.x = direction * SPEED
 	else:
 		if velocity.y == 0:
-			anim.play("Idle")
+			anim_2.play("Idle")
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
 	if direction > 0:
@@ -40,7 +41,7 @@ func _physics_process(delta: float) -> void:
 		anim.flip_h = true
 		
 	if velocity.y > 0:
-		anim.play("Fall")
+		anim_2.play("Fall")
 		
 	if health <= 0:
 		queue_free()
