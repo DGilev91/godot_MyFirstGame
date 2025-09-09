@@ -16,6 +16,7 @@ const JUMP_VELOCITY = -400.0
 var health: int = 100
 var gold: int = 0
 var state: State = State.MOVE
+var is_combo: bool = false
 
 @onready var anim: AnimatedSprite2D = $Anim
 @onready var anim_2: AnimationPlayer = $Anim2
@@ -30,15 +31,15 @@ func _physics_process(delta: float) -> void:
 		State.MOVE:
 			move_state()
 		State.ATTACK:
-			pass
+			attack_state()
 		State.ATTACK_2:
-			pass
+			attack2_state()
 		State.ATTACK_3:
-			pass
+			attack3_state()
 		State.BLOCK:
 			block_state()
 		State.SLIDE:
-			pass
+			slide_state()
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -86,10 +87,52 @@ func move_state():
 		RUN_SPEED = 1
 		
 	if Input.is_action_pressed("block"):
-		state = State.BLOCK
+		if velocity.x == 0:
+			state = State.BLOCK
+		else: 
+			state = State.SLIDE
+	elif Input.is_action_just_pressed("attack"):
+		state = State.ATTACK
 		
 func block_state():
 	velocity.x = 0
 	anim_2.play("Block")
 	if Input.is_action_just_released("block"):
 		state = State.MOVE
+
+func slide_state():
+	anim_2.play("Slide")
+	await anim_2.animation_finished
+	state = State.MOVE
+	
+func attack_state():
+	if Input.is_action_just_pressed("attack") and is_combo:
+		state = State.ATTACK_2
+		return
+	
+	velocity.x = 0
+	anim_2.play("Attack")
+	await anim_2.animation_finished
+	state = State.MOVE	
+	
+func attack2_state():
+	if Input.is_action_just_pressed("attack") and is_combo:
+		state = State.ATTACK_3
+		return
+		
+	velocity.x = 0
+	anim_2.play("Attack2")
+	await anim_2.animation_finished
+	state = State.MOVE	
+
+func attack3_state():
+	velocity.x = 0
+	anim_2.play("Attack3")
+	await anim_2.animation_finished
+	state = State.MOVE	
+
+
+func combo1():
+	is_combo = true
+	await anim_2.animation_finished
+	is_combo = false
