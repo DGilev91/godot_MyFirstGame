@@ -15,7 +15,7 @@ var RUN_SPEED = 1.0
 const JUMP_VELOCITY = -400.0
 var health: int = 100
 var gold: int = 0
-var state: State = State.IDLE
+var state: State = State.MOVE
 
 @onready var anim: AnimatedSprite2D = $Anim
 @onready var anim_2: AnimationPlayer = $Anim2
@@ -23,8 +23,7 @@ var state: State = State.IDLE
 
 
 func _physics_process(delta: float) -> void:
-	
-	state = State.MOVE
+
 	match state:
 		State.IDLE:
 			pass
@@ -37,7 +36,7 @@ func _physics_process(delta: float) -> void:
 		State.ATTACK_3:
 			pass
 		State.BLOCK:
-			pass
+			block_state()
 		State.SLIDE:
 			pass
 	
@@ -85,3 +84,12 @@ func move_state():
 		RUN_SPEED = 2
 	else:
 		RUN_SPEED = 1
+		
+	if Input.is_action_pressed("block"):
+		state = State.BLOCK
+		
+func block_state():
+	velocity.x = 0
+	anim_2.play("Block")
+	if Input.is_action_just_released("block"):
+		state = State.MOVE
