@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://b8a2ou2dfgqmb"]
+[gd_scene load_steps=15 format=4 uid="uid://b8a2ou2dfgqmb"]
 
 [ext_resource type="PackedScene" uid="uid://de1n8lsn0pgt6" path="res://Scenes/Player/player.tscn" id="1_iheil"]
 [ext_resource type="Script" uid="uid://7s7lpc15m5rj" path="res://Scenes/Level/level.gd" id="1_q8n36"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d2b8dka20ie2v" path="res://oak_woods_v1.0/background/background_layer_3.png" id="4_7i4w6"]
 [ext_resource type="Texture2D" uid="uid://clt552c8qcrkg" path="res://oak_woods_v1.0/oak_woods_tileset.png" id="5_x701m"]
 [ext_resource type="PackedScene" uid="uid://f7qb15cd6raj" path="res://Scenes/Shop/shop.tscn" id="6_7i4w6"]
+[ext_resource type="Texture2D" uid="uid://d2sgsexeeexo1" path="res://oak_woods_v1.0/circle.png" id="8_362x8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7i4w6"]
 texture = ExtResource("5_x701m")
@@ -568,6 +569,9 @@ var gold: Resource = preload(\"res://Scenes/Gold/gold.tscn\")
 	#add_child(goldTemp)
 "
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_362x8"]
+polygon = PackedVector2Array(655, 640, 870, 641, 871, 731, 626, 731)
+
 [node name="Level" type="Node2D"]
 script = ExtResource("1_q8n36")
 
@@ -646,13 +650,22 @@ position = Vector2(780, 606)
 position = Vector2(537, 626)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-enabled = false
 energy = 0.97
 blend_mode = 1
 range_layer_min = -1
 
 [node name="DayNight" type="Timer" parent="."]
-wait_time = 20.0
+wait_time = 5.0
 autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(737.5, 599)
+scale = Vector2(0.19875, 0.23)
+energy = 3.54
+shadow_enabled = true
+texture = ExtResource("8_362x8")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_362x8")
 
 [connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]

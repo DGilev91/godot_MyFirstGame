@@ -7,8 +7,9 @@ enum  State {
 	NIGHT
 }
 
-var state: State = State.MORNING
+var state: State = State.NIGHT
 @onready var directional_light_2d: DirectionalLight2D = $DirectionalLight2D
+@onready var point_light_2d: PointLight2D = $PointLight2D
 
 
 func  _ready() -> void:
@@ -29,17 +30,29 @@ func morning_state():
 	var tween = get_tree().create_tween()
 	tween.tween_property(directional_light_2d, "energy", 0.5, 3)
 	
+	var tween1 = get_tree().create_tween()
+	tween1.tween_property(point_light_2d, "energy", 2, 3)
+	
 func day_state():
 	var tween = get_tree().create_tween()
 	tween.tween_property(directional_light_2d, "energy", 0.2, 3)
+	
+	var tween1 = get_tree().create_tween()
+	tween1.tween_property(point_light_2d, "energy", 0, 3)
 	
 func evening_state():
 	var tween = get_tree().create_tween()
 	tween.tween_property(directional_light_2d, "energy", 0.5, 3)
 	
+	var tween1 = get_tree().create_tween()
+	tween1.tween_property(point_light_2d, "energy", 2, 3)
+	
 func night_state():
 	var tween = get_tree().create_tween()
 	tween.tween_property(directional_light_2d, "energy", 0.97, 3)
+	
+	var tween1 = get_tree().create_tween()
+	tween1.tween_property(point_light_2d, "energy", 3.5, 3)
 
 func _on_day_night_timeout() -> void:
 	match state:
