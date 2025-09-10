@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=4 uid="uid://b8a2ou2dfgqmb"]
+[gd_scene load_steps=13 format=4 uid="uid://b8a2ou2dfgqmb"]
 
 [ext_resource type="PackedScene" uid="uid://de1n8lsn0pgt6" path="res://Scenes/Player/player.tscn" id="1_iheil"]
+[ext_resource type="Script" uid="uid://7s7lpc15m5rj" path="res://Scenes/Level/level.gd" id="1_q8n36"]
 [ext_resource type="Texture2D" uid="uid://dsmn05vgaqnno" path="res://oak_woods_v1.0/background/background_layer_1.png" id="2_06ioy"]
 [ext_resource type="Texture2D" uid="uid://basdqe10i3wt" path="res://oak_woods_v1.0/background/background_layer_2.png" id="3_x701m"]
 [ext_resource type="Texture2D" uid="uid://d2b8dka20ie2v" path="res://oak_woods_v1.0/background/background_layer_3.png" id="4_7i4w6"]
@@ -568,8 +569,10 @@ var gold: Resource = preload(\"res://Scenes/Gold/gold.tscn\")
 "
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_q8n36")
 
 [node name="BG" type="ParallaxBackground" parent="."]
+layer = -1
 offset = Vector2(0, 310)
 scale = Vector2(0.5, 0.5)
 transform = Transform2D(0.5, 0, 0, 0.5, 0, 310)
@@ -641,3 +644,15 @@ position = Vector2(780, 606)
 
 [node name="Player" parent="." instance=ExtResource("1_iheil")]
 position = Vector2(537, 626)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+enabled = false
+energy = 0.97
+blend_mode = 1
+range_layer_min = -1
+
+[node name="DayNight" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]
