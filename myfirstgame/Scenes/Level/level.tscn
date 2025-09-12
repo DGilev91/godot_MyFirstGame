@@ -720,7 +720,7 @@ position = Vector2(780, 606)
 position = Vector2(537, 626)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-energy = 0.97
+enabled = false
 blend_mode = 1
 range_layer_min = -1
 

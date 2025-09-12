@@ -7,7 +7,7 @@ enum  State {
 	NIGHT
 }
 
-var state: State = State.NIGHT
+var state: State = State.MORNING
 var day_count: int = 1
 
 @onready var directional_light_2d: DirectionalLight2D = $DirectionalLight2D
