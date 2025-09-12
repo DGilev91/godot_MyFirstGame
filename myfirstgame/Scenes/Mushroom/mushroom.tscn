@@ -382,6 +382,7 @@ _data = {
 }
 
 [node name="Mushroom" type="CharacterBody2D"]
+collision_layer = 4
 script = ExtResource("1_0duw3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -392,7 +393,7 @@ position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_yeyrn")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.867079
+frame_progress = 0.42349
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

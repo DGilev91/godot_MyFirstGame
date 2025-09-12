@@ -19,6 +19,7 @@ var day_count: int = 1
 
 func  _ready() -> void:
 	directional_light_2d.enabled = true
+	state = State.MORNING
 	set_dat_text()		
 		
 func morning_state():
@@ -60,7 +61,8 @@ func _on_day_night_timeout() -> void:
 		State.EVENING:
 			evening_state()
 		State.NIGHT:
-			night_state()
+			#night_state()
+			evening_state()
 	
 	match state:
 		State.MORNING:
