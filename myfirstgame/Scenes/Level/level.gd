@@ -44,7 +44,7 @@ func evening_state():
 	
 func night_state():
 	var tween = get_tree().create_tween()
-	tween.tween_property(directional_light_2d, "energy", 0.97, 3)
+	tween.tween_property(directional_light_2d, "energy", 0.8, 3)
 	
 	var tween1 = get_tree().create_tween()
 	tween1.tween_property(point_light_2d, "energy", 3.5, 3)

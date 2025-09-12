@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://b8a2ou2dfgqmb"]
+[gd_scene load_steps=20 format=4 uid="uid://b8a2ou2dfgqmb"]
 
 [ext_resource type="PackedScene" uid="uid://de1n8lsn0pgt6" path="res://Scenes/Player/player.tscn" id="1_iheil"]
 [ext_resource type="Script" uid="uid://7s7lpc15m5rj" path="res://Scenes/Level/level.gd" id="1_q8n36"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d2b8dka20ie2v" path="res://oak_woods_v1.0/background/background_layer_3.png" id="4_7i4w6"]
 [ext_resource type="Texture2D" uid="uid://clt552c8qcrkg" path="res://oak_woods_v1.0/oak_woods_tileset.png" id="5_x701m"]
 [ext_resource type="PackedScene" uid="uid://f7qb15cd6raj" path="res://Scenes/Shop/shop.tscn" id="6_7i4w6"]
+[ext_resource type="PackedScene" uid="uid://b7fwspt85vdm8" path="res://Scenes/Mushroom/mushroom.tscn" id="6_43gce"]
 [ext_resource type="Texture2D" uid="uid://d2sgsexeeexo1" path="res://oak_woods_v1.0/circle.png" id="8_362x8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7i4w6"]
@@ -668,6 +669,9 @@ tile_map_data = PackedByteArray("AAChAC0AAAABAAEAAAChACwAAAABAAEAAAChACsAAAABAAE
 tile_set = SubResource("TileSet_q8n36")
 
 [node name="Mobs" type="Node2D" parent="."]
+
+[node name="Mushroom" parent="Mobs" instance=ExtResource("6_43gce")]
+position = Vector2(905, 622)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
