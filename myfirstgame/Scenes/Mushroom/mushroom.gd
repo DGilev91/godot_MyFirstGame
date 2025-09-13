@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var anim: AnimatedSprite2D = $Anim
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var collision_shape_2d: CollisionShape2D = $AttackDirection/AttackRange/CollisionShape2D
 
 enum State {
 	IDLE,
@@ -39,8 +40,11 @@ func _on_attack_range_body_entered(_body: Node2D) -> void:
 	
 func idle_state():
 	animation_player.play("Idle")
+	await  get_tree().create_timer(1).timeout
+	collision_shape_2d.disabled = false
 	
 func attack_state():
 	animation_player.play("Attack")
 	await animation_player.animation_finished
+	collision_shape_2d.disabled = true
 	state = State.IDLE
