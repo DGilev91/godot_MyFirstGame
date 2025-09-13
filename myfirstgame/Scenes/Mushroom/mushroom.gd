@@ -3,18 +3,44 @@ extends CharacterBody2D
 @onready var anim: AnimatedSprite2D = $Anim
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+enum State {
+	IDLE,
+	ATTACK,
+	CHASE
+}
 
+var state: State = State.IDLE:
+	set(value):
+		state = value
+		match state:
+			State.IDLE:
+				idle_state()
+			State.ATTACK:
+				attack_state()
+			State.CHASE:
+				pass
+			
+	get:
+		return state
 
 func  _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
-	var player = $"../../Player"
-	var direction = (player.position - self.position).normalized()
+	#var player = $"../../Player"
+	#var direction = (player.position - self.position).normalized()
 	
 	move_and_slide()                                          
 
 
 
-func _on_attack_range_body_entered(body: Node2D) -> void:
+func _on_attack_range_body_entered(_body: Node2D) -> void:
+	state = State.ATTACK
+	
+func idle_state():
+	animation_player.play("Idle")
+	
+func attack_state():
 	animation_player.play("Attack")
+	await animation_player.animation_finished
+	state = State.IDLE
