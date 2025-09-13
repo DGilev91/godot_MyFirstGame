@@ -42,6 +42,7 @@ func idle_state():
 	animation_player.play("Idle")
 	await  get_tree().create_timer(1).timeout
 	collision_shape_2d.disabled = false
+	state = State.CHASE
 	
 func attack_state():
 	animation_player.play("Attack")
