@@ -4,6 +4,9 @@ extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var collision_shape_2d: CollisionShape2D = $AttackDirection/AttackRange/CollisionShape2D
 @onready var attack_direction: Node2D = $AttackDirection
+@onready var damage_box: Node2D = $DamageBox
+
+
 
 enum State {
 	IDLE,
@@ -14,6 +17,7 @@ enum State {
 
 var player_pos: Vector2
 var direction
+var damage: int = 20
 
 var state: State = State.IDLE:
 	set(value):
@@ -66,9 +70,15 @@ func chase_state():
 	if direction.x < 0:
 		anim.flip_h = true
 		attack_direction.rotation_degrees = 180
+		damage_box.rotation_degrees = 180
 	elif direction.x > 0:
 		anim.flip_h = false
 		attack_direction.rotation_degrees = 0
+		damage_box.rotation_degrees = 0
 
-func player_pos_update(player_pos: Vector2):
-	self.player_pos = player_pos
+func player_pos_update(pos: Vector2):
+	player_pos = pos
+
+
+func _on_hit_box_area_entered(_area: Area2D) -> void:
+	Signals.emit_signal("enemy_attack", damage)

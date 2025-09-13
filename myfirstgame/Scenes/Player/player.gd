@@ -7,7 +7,9 @@ enum State {
 	ATTACK_2,
 	ATTACK_3,
 	BLOCK,
-	SLIDE
+	SLIDE,
+	DAMAGE,
+	DEATH
 }
 
 const SPEED = 300.0
@@ -21,7 +23,10 @@ var is_combo: bool = false
 @onready var anim: AnimatedSprite2D = $Anim
 @onready var anim_2: AnimationPlayer = $Anim2
 @onready var camera_2d: Camera2D = $Camera2D
+@onready var damage_box: Node2D = $AttackDirection/DamageBox
 
+func _ready() -> void:
+	Signals.connect("enemy_attack", on_enemy_attack)
 
 func _physics_process(delta: float) -> void:
 
@@ -40,6 +45,10 @@ func _physics_process(delta: float) -> void:
 			block_state()
 		State.SLIDE:
 			slide_state()
+		State.DAMAGE:
+			damage_state()
+		State.DEATH:
+			death_state()
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -53,13 +62,6 @@ func _physics_process(delta: float) -> void:
 	if velocity.y > 0:
 		anim_2.play("Fall")
 		
-	if health <= 0:
-		health = 0
-		anim_2.play("Death")
-		await anim_2.animation_finished
-		queue_free()
-		get_tree().change_scene_to_file("res://Scenes/menu/menu.tscn")
-
 	move_and_slide()
 	
 	Signals.emit_signal("player_position_update", position)
@@ -80,8 +82,10 @@ func move_state():
 		
 	if direction > 0:
 		anim.flip_h = false
+		damage_box.rotation_degrees = 0
 	elif direction < 0:
 		anim.flip_h = true
+		damage_box.rotation_degrees = 180
 		
 	if Input.is_action_pressed("run"):
 		RUN_SPEED = 2
@@ -138,3 +142,27 @@ func combo1():
 	is_combo = true
 	await anim_2.animation_finished
 	is_combo = false
+	
+	
+func damage_state():
+	velocity.x = 0
+	anim_2.play("Damage")
+	await anim_2.animation_finished
+	state = State.MOVE	
+	
+func death_state():
+	if health <= 0:
+		health = 0
+	
+	state = State.IDLE	
+	anim_2.play("Death")
+	await anim_2.animation_finished
+	get_tree().change_scene_to_file("res://Scenes/menu/menu.tscn")	
+	
+func on_enemy_attack(damange: int):
+	if state == State.DEATH:
+		return
+	state = State.DAMAGE
+	health -= damange
+	if health <= 0:
+		state = State.DEATH
