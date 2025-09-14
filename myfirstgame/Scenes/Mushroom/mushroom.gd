@@ -100,6 +100,7 @@ func damage_state():
 func death_state():
 	animation_player.play("Death")
 	await animation_player.animation_finished
+	queue_free()
 	
 func recover_state():
 	animation_player.play("Recover")
