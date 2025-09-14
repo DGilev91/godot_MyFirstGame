@@ -24,10 +24,9 @@ var damage: int = 20
 
 var health: float = 100:
 	set(value):
-		var new_healt = health - value
-		if new_healt < 0:
-			new_healt = 0
-		health = new_healt
+		if value < 0:
+			value = 0
+		health = value
 	get:
 		return health
 
@@ -108,7 +107,11 @@ func recover_state():
 	state = State.IDLE
 	
 func on_player_attack(damage: float):
+	if state == State.DEATH:
+		return
+		
 	health -= damage
+	print(health," ", damage)
 	if health == 0:
 		state = State.DEATH
 	else:			
