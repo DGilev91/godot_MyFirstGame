@@ -171,6 +171,11 @@ func death_state():
 	get_tree().change_scene_to_file("res://Scenes/menu/menu.tscn")	
 	
 func on_enemy_attack(damange: int):
+	if state == State.BLOCK:
+		damange /= 2
+	elif state == State.SLIDE:
+		damange = 0
+	
 	if state == State.DEATH:
 		return
 	state = State.DAMAGE
