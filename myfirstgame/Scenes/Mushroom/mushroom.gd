@@ -11,13 +11,26 @@ extends CharacterBody2D
 enum State {
 	IDLE,
 	ATTACK,
-	CHASE
+	CHASE,
+	DAMAGE,
+	DEATH,
+	RECOVER
 }
 
 
 var player_pos: Vector2
 var direction
 var damage: int = 20
+
+var health: float = 100:
+	set(value):
+		var new_healt = health - value
+		if new_healt < 0:
+			new_healt = 0
+		health = new_healt
+	get:
+		return health
+
 
 var state: State = State.IDLE:
 	set(value):
@@ -29,12 +42,19 @@ var state: State = State.IDLE:
 				attack_state()
 			State.CHASE:
 				chase_state()
+			State.DAMAGE:
+				damage_state()
+			State.DEATH:
+				death_state()
+			State.RECOVER:
+				recover_state()
 			
 	get:
 		return state
 
 func _ready() -> void:
 	Signals.connect("player_position_update", player_pos_update)
+	Signals.connect("player_attack", on_player_attack)
 
 
 func  _physics_process(delta: float) -> void:
@@ -55,14 +75,11 @@ func _on_attack_range_body_entered(_body: Node2D) -> void:
 	
 func idle_state():
 	animation_player.play("Idle")
-	await  get_tree().create_timer(1).timeout
-	collision_shape_2d.disabled = false
 	state = State.CHASE
 	
 func attack_state():
 	animation_player.play("Attack")
 	await animation_player.animation_finished
-	collision_shape_2d.disabled = true
 	state = State.IDLE
 
 func chase_state():
@@ -76,6 +93,27 @@ func chase_state():
 		attack_direction.rotation_degrees = 0
 		damage_box.rotation_degrees = 0
 
+func damage_state():
+	animation_player.play("Damage")
+	await animation_player.animation_finished
+	state = State.IDLE
+	
+func death_state():
+	animation_player.play("Death")
+	await animation_player.animation_finished
+	
+func recover_state():
+	animation_player.play("Recover")
+	await animation_player.animation_finished
+	state = State.IDLE
+	
+func on_player_attack(damage: float):
+	health -= damage
+	if health == 0:
+		state = State.DEATH
+	else:			
+		state = State.DAMAGE
+	
 func player_pos_update(pos: Vector2):
 	player_pos = pos
 

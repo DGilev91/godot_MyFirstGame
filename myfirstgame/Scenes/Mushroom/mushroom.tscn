@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://b7fwspt85vdm8"]
+[gd_scene load_steps=51 format=3 uid="uid://b7fwspt85vdm8"]
 
 [ext_resource type="Script" uid="uid://rni42mtfpnvs" path="res://Scenes/Mushroom/mushroom.gd" id="1_0duw3"]
 [ext_resource type="Texture2D" uid="uid://3v72e3kf4dla" path="res://Monsters_Creatures_Fantasy/Mushroom/Attack.png" id="1_3napl"]
@@ -87,6 +87,22 @@ atlas = ExtResource("4_m8c05")
 region = Rect2(300, 0, 150, 150)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_maljn"]
+atlas = ExtResource("4_m8c05")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sutsp"]
+atlas = ExtResource("4_m8c05")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8c05"]
+atlas = ExtResource("4_m8c05")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfa1a"]
+atlas = ExtResource("4_m8c05")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cgca"]
 atlas = ExtResource("4_m8c05")
 region = Rect2(450, 0, 150, 150)
 
@@ -206,6 +222,35 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_sutsp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8c05")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfa1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cgca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sutsp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8c05")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfa1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cgca")
+}],
+"loop": false,
+"name": &"Recover",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_sfqut")
 }, {
 "duration": 1.0,
@@ -233,6 +278,45 @@ animations = [{
 "name": &"Run",
 "speed": 10.0
 }]
+
+[sub_resource type="Animation" id="Animation_4cgca"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageBox/HitBox:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageBox/HitBox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/AttackRange/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_3napl"]
 length = 0.8
@@ -312,6 +396,18 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Damage"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/AttackRange/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_sutsp"]
 length = 0.4
@@ -338,6 +434,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["Death"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/AttackRange/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_m8c05"]
@@ -367,28 +475,53 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Idle"]
 }
-
-[sub_resource type="Animation" id="Animation_4cgca"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DamageBox/HitBox:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/AttackRange/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
+
+[sub_resource type="Animation" id="Animation_3db4u"]
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anim:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("DamageBox/HitBox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("Anim:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Recover"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/AttackRange/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -430,6 +563,7 @@ _data = {
 &"Death": SubResource("Animation_sutsp"),
 &"Idle": SubResource("Animation_m8c05"),
 &"RESET": SubResource("Animation_4cgca"),
+&"Recover": SubResource("Animation_3db4u"),
 &"Run": SubResource("Animation_sfa1a")
 }
 
@@ -446,14 +580,15 @@ shape = SubResource("CapsuleShape2D_4cgca")
 [node name="Anim" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_yeyrn")
-animation = &"Attack"
+animation = &"Damage"
 autoplay = "Idle"
-frame = 7
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_4cgca")
 }
+autoplay = "Idle"
 
 [node name="AttackDirection" type="Node2D" parent="."]
 
@@ -464,6 +599,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDirection/AttackRange"]
 position = Vector2(21, -2)
 shape = SubResource("RectangleShape2D_0duw3")
+disabled = true
 
 [node name="DamageBox" parent="." instance=ExtResource("7_sutsp")]
 

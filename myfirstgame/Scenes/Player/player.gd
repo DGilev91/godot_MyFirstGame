@@ -33,6 +33,10 @@ var gold: int = 0
 var state: State = State.MOVE
 var is_combo: bool = false
 
+var damage_basic: float = 10
+var damage_multiplier: float = 1
+var damage_current: float = 0
+
 @onready var anim: AnimatedSprite2D = $Anim
 @onready var anim_2: AnimationPlayer = $Anim2
 @onready var camera_2d: Camera2D = $Camera2D
@@ -43,6 +47,7 @@ func _ready() -> void:
 	#health = max_health
 
 func _physics_process(delta: float) -> void:
+
 
 	match state:
 		State.IDLE:
@@ -64,6 +69,7 @@ func _physics_process(delta: float) -> void:
 		State.DEATH:
 			death_state()
 	
+	damage_current = damage_basic * damage_multiplier
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -126,6 +132,7 @@ func slide_state():
 	state = State.MOVE
 	
 func attack_state():
+	damage_multiplier = 1
 	if Input.is_action_just_pressed("attack") and is_combo:
 		state = State.ATTACK_2
 		return
@@ -136,6 +143,7 @@ func attack_state():
 	state = State.MOVE	
 	
 func attack2_state():
+	damage_multiplier = 1.2
 	if Input.is_action_just_pressed("attack") and is_combo:
 		state = State.ATTACK_3
 		return
@@ -146,6 +154,7 @@ func attack2_state():
 	state = State.MOVE	
 
 func attack3_state():
+	damage_multiplier = 2
 	velocity.x = 0
 	anim_2.play("Attack3")
 	await anim_2.animation_finished
@@ -182,3 +191,7 @@ func on_enemy_attack(damange: int):
 	health -= damange
 	if health == 0:
 		state = State.DEATH
+
+
+func _on_hit_box_area_entered(area: Area2D) -> void:
+	Signals.emit_signal("player_attack", damage_current)
