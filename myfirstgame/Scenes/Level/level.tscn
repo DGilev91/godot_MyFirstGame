@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://b8a2ou2dfgqmb"]
+[gd_scene load_steps=22 format=4 uid="uid://b8a2ou2dfgqmb"]
 
 [ext_resource type="PackedScene" uid="uid://de1n8lsn0pgt6" path="res://Scenes/Player/player.tscn" id="1_iheil"]
 [ext_resource type="Script" uid="uid://7s7lpc15m5rj" path="res://Scenes/Level/level.gd" id="1_q8n36"]
@@ -8,7 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://clt552c8qcrkg" path="res://oak_woods_v1.0/oak_woods_tileset.png" id="5_x701m"]
 [ext_resource type="PackedScene" uid="uid://f7qb15cd6raj" path="res://Scenes/Shop/shop.tscn" id="6_7i4w6"]
 [ext_resource type="PackedScene" uid="uid://b7fwspt85vdm8" path="res://Scenes/Mushroom/mushroom.tscn" id="6_43gce"]
+[ext_resource type="Texture2D" uid="uid://bxj1qa5d5kjdr" path="res://HEALTH METERS/health meter-03.png" id="7_unl86"]
 [ext_resource type="Texture2D" uid="uid://d2sgsexeeexo1" path="res://oak_woods_v1.0/circle.png" id="8_362x8"]
+[ext_resource type="Texture2D" uid="uid://b5ohajuaf1ace" path="res://HEALTH METERS/health meter-04.png" id="8_wvups"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7i4w6"]
 texture = ExtResource("5_x701m")
@@ -696,19 +698,29 @@ script = SubResource("GDScript_q8n36")
 
 [node name="DayText" type="Label" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0)
-offset_left = 389.0
-offset_top = 7.0
-offset_right = 703.0
-offset_bottom = 117.0
+offset_left = 427.0
+offset_top = 67.0
+offset_right = 741.0
+offset_bottom = 177.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 80
 text = "DAY"
+horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
 libraries = {
 &"": SubResource("AnimationLibrary_unl86")
 }
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = 296.0
+offset_top = 6.0
+offset_right = 962.0
+offset_bottom = 136.0
+value = 100.0
+texture_under = ExtResource("7_unl86")
+texture_progress = ExtResource("8_wvups")
 
 [node name="Collectibles" type="Node2D" parent="."]
 script = SubResource("GDScript_362x8")
@@ -744,4 +756,5 @@ texture = ExtResource("8_362x8")
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_362x8")
 
+[connection signal="health_changed" from="Player" to="." method="_on_player_health_changed"]
 [connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]

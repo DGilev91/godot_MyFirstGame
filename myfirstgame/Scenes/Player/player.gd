@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+signal health_changed(health: int)
+
+
 enum State {
 	IDLE,
 	MOVE,
@@ -15,7 +18,17 @@ enum State {
 const SPEED = 300.0
 var RUN_SPEED = 1.0
 const JUMP_VELOCITY = -400.0
-var health: int = 100
+var max_health: int = 100
+var health: int = max_health:
+	set(value):
+		if value <= 0:
+			value = 0
+		health = value
+		emit_signal("health_changed", health)
+	get:
+		return health
+		
+		
 var gold: int = 0
 var state: State = State.MOVE
 var is_combo: bool = false
@@ -27,6 +40,7 @@ var is_combo: bool = false
 
 func _ready() -> void:
 	Signals.connect("enemy_attack", on_enemy_attack)
+	#health = max_health
 
 func _physics_process(delta: float) -> void:
 
@@ -150,10 +164,7 @@ func damage_state():
 	await anim_2.animation_finished
 	state = State.MOVE	
 	
-func death_state():
-	if health <= 0:
-		health = 0
-	
+func death_state():	
 	state = State.IDLE	
 	anim_2.play("Death")
 	await anim_2.animation_finished
@@ -164,5 +175,5 @@ func on_enemy_attack(damange: int):
 		return
 	state = State.DAMAGE
 	health -= damange
-	if health <= 0:
+	if health == 0:
 		state = State.DEATH

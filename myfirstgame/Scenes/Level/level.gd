@@ -14,10 +14,14 @@ var day_count: int = 1
 @onready var point_light_2d: PointLight2D = $PointLight2D
 @onready var day_text: Label = $CanvasLayer/DayText
 @onready var animation_player: AnimationPlayer = $CanvasLayer/AnimationPlayer
+@onready var texture_progress_bar: TextureProgressBar = $CanvasLayer/TextureProgressBar
+@onready var player: CharacterBody2D = $Player
 
 
 
 func  _ready() -> void:
+	texture_progress_bar.max_value = player.max_health
+	texture_progress_bar.value = player.max_health
 	directional_light_2d.enabled = true
 	state = State.MORNING
 	set_dat_text()		
@@ -80,3 +84,7 @@ func set_dat_text():
 	await get_tree().create_timer(3).timeout
 	animation_player.play("day_text_fade_out")
 	
+
+
+func _on_player_health_changed(health: int) -> void:
+	texture_progress_bar.value = health
