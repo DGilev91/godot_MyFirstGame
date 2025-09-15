@@ -18,6 +18,7 @@ var health: float = 100:
 		
 func _ready() -> void:
 	health = 100
+	health_bar.max_value = health
 	Signals.connect("player_attack", on_player_attack)
 
 func on_player_attack(damage: float):
