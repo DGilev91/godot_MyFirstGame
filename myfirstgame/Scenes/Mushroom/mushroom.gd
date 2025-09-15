@@ -22,13 +22,7 @@ var player_pos: Vector2
 var direction
 var damage: int = 20
 
-var health: float = 100:
-	set(value):
-		if value < 0:
-			value = 0
-		health = value
-	get:
-		return health
+
 
 
 var state: State = State.IDLE:
@@ -53,7 +47,7 @@ var state: State = State.IDLE:
 
 func _ready() -> void:
 	Signals.connect("player_position_update", player_pos_update)
-	Signals.connect("player_attack", on_player_attack)
+
 
 
 func  _physics_process(delta: float) -> void:
@@ -107,16 +101,7 @@ func recover_state():
 	await animation_player.animation_finished
 	state = State.IDLE
 	
-func on_player_attack(damage: float):
-	if state == State.DEATH:
-		return
-		
-	health -= damage
-	print(health," ", damage)
-	if health == 0:
-		state = State.DEATH
-	else:			
-		state = State.DAMAGE
+
 	
 func player_pos_update(pos: Vector2):
 	player_pos = pos
@@ -124,3 +109,12 @@ func player_pos_update(pos: Vector2):
 
 func _on_hit_box_area_entered(_area: Area2D) -> void:
 	Signals.emit_signal("enemy_attack", damage)
+
+
+func _on_mob_health_damage_received() -> void:
+	state = State.IDLE
+	state = State.DAMAGE
+
+
+func _on_mob_health_no_health() -> void:
+	state = State.DEATH 
