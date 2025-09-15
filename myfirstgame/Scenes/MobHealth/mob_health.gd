@@ -15,6 +15,7 @@ var health: float = 100:
 		health = value
 		health_bar.value = health
 		damage_text.text = str(health)
+		anim_player.stop()
 		anim_player.play("damage_text")
 	get:
 		return health
