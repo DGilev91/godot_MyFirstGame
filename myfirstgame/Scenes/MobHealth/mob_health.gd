@@ -5,6 +5,8 @@ signal damage_received()
 
 @onready var health_bar: TextureProgressBar = $HealthBar
 @onready var damage_text: Label = $DamageText
+@onready var anim_player: AnimationPlayer = $AnimPlayer
+
 
 var health: float = 100:
 	set(value):
@@ -13,6 +15,7 @@ var health: float = 100:
 		health = value
 		health_bar.value = health
 		damage_text.text = str(health)
+		anim_player.play("damage_text")
 	get:
 		return health
 		
