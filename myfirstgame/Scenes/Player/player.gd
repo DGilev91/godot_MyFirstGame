@@ -44,7 +44,7 @@ var damage_current: float = 0
 
 func _ready() -> void:
 	Signals.connect("enemy_attack", on_enemy_attack)
-	#health = max_health
+	position = SaveLoad.player_pos
 
 func _physics_process(delta: float) -> void:
 
@@ -77,12 +77,13 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-
+	
 			
 	if velocity.y > 0:
 		anim_2.play("Fall")
 		
 	move_and_slide()
+	SaveLoad.player_pos = position
 	
 	Signals.emit_signal("player_position_update", position)
 
